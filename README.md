@@ -71,7 +71,7 @@ npm run dev
 
 ## status
 
-🟡 deployed — needs vercel redeploy after rework
+🟢 live — [project-survey-vite-brown.vercel.app](https://project-survey-vite-brown.vercel.app)
 
 ---
 
