@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import "../styles/NewsletterQuestion.css";
+import { useState } from "react";
 
 const emailValidation = (email) => {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email);
 };
 
-export const NewsletterQuestion = ({
+const NewsletterQuestion = ({
   questionText,
   answer,
   onAnswerChange,
@@ -19,7 +18,6 @@ export const NewsletterQuestion = ({
   });
 
   const handleRadioChange = (selection) => {
-    // If changing answer to "No" after having submitted an email, reset submission
     if (selection === "No" && emailState.isSubmitted) {
       setEmailState({
         email: "",
@@ -27,7 +25,6 @@ export const NewsletterQuestion = ({
         isSubmitted: false,
       });
     } else {
-      // Reset isSubmitted when changing the answer
       setEmailState((prevState) => ({
         ...prevState,
         isSubmitted: false,
@@ -50,65 +47,64 @@ export const NewsletterQuestion = ({
         ...prevState,
         isSubmitted: true,
       }));
-      onAnswerChange(emailState.email); // Call the callback with the valid email
+      onAnswerChange(emailState.email);
     }
   };
 
   return (
     <div>
       <h3>{questionText}</h3>
-      <div>
-        <label>
+      <div className="RadioGroup">
+        <label className="RadioLabel">
           <input
             type="radio"
             value="Yes"
-            checked={answer === "Yes"}
+            checked={answer === "Yes" || (answer && answer !== "No")}
             onChange={() => handleRadioChange("Yes")}
           />
-          Yes
+          Yes, sign me up!
         </label>
-        <label>
+        <label className="RadioLabel">
           <input
             type="radio"
             value="No"
             checked={answer === "No"}
             onChange={() => handleRadioChange("No")}
           />
-          No
+          No thanks
         </label>
       </div>
       {answer === "Yes" && !emailState.isSubmitted && (
         <div>
-          <label className="EmailLabel">
-            Enter your email:
-            <input
-              type="text"
-              value={emailState.email}
-              onChange={(e) => handleEmailChange(e.target.value)}
-              placeholder="example@email.com"
-              className="InputEmail"
-            />
-          </label>
+          <input
+            type="email"
+            className="EmailInput"
+            value={emailState.email}
+            onChange={(e) => handleEmailChange(e.target.value)}
+            placeholder="you@example.com"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && emailState.isEmailValid && emailState.email) {
+                handleSubmission();
+              }
+            }}
+          />
           <button
             onClick={handleSubmission}
             disabled={!emailState.isEmailValid || emailState.email === ""}
-            style={{ marginTop: "10px" }}
             className="SubmitButton"
           >
-            Submit
+            Subscribe
           </button>
-          {!emailState.isEmailValid && (
-            <p style={{ color: "red", marginLeft: "5px" }}>
-              Please enter a valid email address.
-            </p>
+          {!emailState.isEmailValid && emailState.email !== "" && (
+            <p className="EmailError">Please enter a valid email address.</p>
           )}
         </div>
       )}
       {emailState.isSubmitted && (
-        <p style={{ color: "green", marginLeft: "5px" }}>
-          Successfully subscribed!
-        </p>
+        <p className="EmailSuccess">✓ Successfully subscribed!</p>
       )}
     </div>
   );
 };
+
+export default NewsletterQuestion;

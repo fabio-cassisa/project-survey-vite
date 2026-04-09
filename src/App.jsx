@@ -1,5 +1,7 @@
-import { SurveyApp } from "./components/SurveyApp.jsx";
+import SurveyApp from "./components/SurveyApp.jsx";
 
-export const App = () => {
+const App = () => {
   return <SurveyApp />;
 };
+
+export default App;

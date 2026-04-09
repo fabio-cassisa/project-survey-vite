@@ -1,8 +1,9 @@
-export const DropdownQuestion = ({ question, answer, onAnswerChange }) => {
+const DropdownQuestion = ({ question, answer, onAnswerChange }) => {
   return (
     <div>
       <h3>{question.text}</h3>
       <select
+        className="DropdownSelect"
         value={answer || ""}
         onChange={(e) => onAnswerChange(e.target.value)}
       >
@@ -18,3 +19,5 @@ export const DropdownQuestion = ({ question, answer, onAnswerChange }) => {
     </div>
   );
 };
+
+export default DropdownQuestion;

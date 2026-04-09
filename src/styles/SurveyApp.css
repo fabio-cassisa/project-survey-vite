@@ -1,128 +1,620 @@
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #dcdcdc;
-}
-
-div {
-  box-sizing: border-box;
-}
-
-/* Add space between Next and Previous buttons */
-.ButtonContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px; /* Adjust the margin as needed */
-}
-
-/* Style for the Previous button */
-.PreviousButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.PreviousButton:hover {
-  background-color: #429dff;
-}
-
-/* Style for the Next button */
-.NextButton {
-  background-color: #e0e0e0; /* Less bright color */
-  color: #777; /* Change the text color */
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.NextButton:enabled {
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.NextButton:enabled:hover {
-  background-color: #429dff;
-}
-
-h1 {
-  font-size: 26px;
-}
+/* ========================================
+   Survey Container & Layout
+   ======================================== */
 
 .SurveyContainer {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+/* ========================================
+   Header
+   ======================================== */
 
 .MainHeader {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.MainFooter {
-  margin-top: 20px;
-  border-top: 1px solid #ddd;
-  text-align: center;
-  font-size: 11px;
+.MainHeader h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
 }
 
-.Question {
-  font-size: 24px;
-  margin-bottom: 20px;
+.MainHeader p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.Answer {
-  margin-bottom: 20px;
+/* ========================================
+   Progress Bar
+   ======================================== */
+
+.ProgressContainer {
+  margin-bottom: 2rem;
 }
 
-@keyframes fadeIn {
+.ProgressTrack {
+  background-color: var(--surface);
+  height: 6px;
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ProgressFill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ProgressLabel {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   Question Container & Transitions
+   ======================================== */
+
+.QuestionContainer {
+  animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  flex: 1;
+}
+
+@keyframes slideIn {
   from {
     opacity: 0;
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.QuestionContainer {
-  animation: fadeIn 0.5s;
-  margin-bottom: 10px; /* Add more spacing between questions on smaller screens */
+.Answer {
+  margin-bottom: 1.5rem;
 }
 
-/* Adjust font size for the selected value display on smaller screens */
-div.QuestionContainer p {
-  font-size: 14px;
+.Answer h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
 }
+
+/* ========================================
+   Radio Buttons (custom)
+   ======================================== */
+
+.RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.RadioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.RadioLabel:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
+.RadioLabel input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.RadioLabel input[type="radio"]:checked {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--surface);
+}
+
+.RadioLabel:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ========================================
+   Checkboxes (custom)
+   ======================================== */
+
+.CheckboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.CheckboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.CheckboxLabel:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
+.CheckboxLabel input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.CheckboxLabel input[type="checkbox"]:checked {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.CheckboxLabel input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: white;
+  font-weight: 700;
+}
+
+.CheckboxLabel:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ========================================
+   Dropdown
+   ======================================== */
+
+.DropdownSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+.DropdownSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ========================================
+   Range Slider
+   ======================================== */
+
+.RangeSliderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.RangeSliderContainer input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--surface);
+  border-radius: 3px;
+  outline: none;
+}
+
+.RangeSliderContainer input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px var(--accent-glow);
+  transition: box-shadow 0.2s ease;
+}
+
+.RangeSliderContainer input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 8px var(--accent-glow);
+}
+
+.RangeValue {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.RangeScale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* ========================================
+   Newsletter / Email
+   ======================================== */
 
 .EmailInput {
-  margin-left: 10px;
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 5px;
-  outline: none;
-  width: 200px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  transition: border-color 0.2s ease;
+  margin-top: 0.75rem;
 }
 
-/* Add responsive styles for smaller screens */
-@media (max-width: 600px) {
+.EmailInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.EmailError {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.EmailSuccess {
+  color: var(--success);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.ButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.PreviousButton,
+.NextButton,
+.SubmitButton,
+.RestartButton {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.PreviousButton {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.PreviousButton:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.NextButton {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  margin-left: auto;
+}
+
+.NextButton:enabled {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.NextButton:enabled:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.NextButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.SubmitButton {
+  background: var(--accent);
+  color: white;
+  margin-top: 0.75rem;
+}
+
+.SubmitButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.SubmitButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.RestartButton {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.RestartButton:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+/* ========================================
+   Summary
+   ======================================== */
+
+.SummaryContainer {
+  animation: slideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.SummaryContainer h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.SummaryCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.SummaryCard:hover {
+  border-color: var(--accent);
+}
+
+.SummaryQuestion {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.SummaryAnswer {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.SummarySuggestion {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.SummaryChecklist {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.SummaryChecklist li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.SummaryChecklist li:last-child {
+  border-bottom: none;
+}
+
+.SummaryChecklistStatus {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.SummaryChecklistStatus.done {
+  background: var(--success-glow);
+  color: var(--success);
+}
+
+.SummaryChecklistStatus.todo {
+  background: rgba(234, 179, 8, 0.15);
+  color: var(--warning);
+}
+
+.SummaryLevel {
+  display: inline-block;
+  background: var(--accent-glow);
+  color: var(--accent-hover);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+
+.SummarySuggestionList {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.SummarySuggestionList li {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 0.35rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.SummarySuggestionList li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.MainFooter {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.MainFooter a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.MainFooter a:hover {
+  color: var(--accent);
+}
+
+/* ========================================
+   Text Input
+   ======================================== */
+
+.TextInputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.TextInputContainer textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.TextInputContainer textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.TextInputContainer textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ========================================
+   Keyboard hint
+   ======================================== */
+
+.KeyboardHint {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.KeyboardHint kbd {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
   .SurveyContainer {
-    margin: 20px 10px;
-    padding: 10px;
+    padding: 1.25rem 1rem;
   }
 
-  .Question {
-    font-size: 20px;
+  .MainHeader h1 {
+    font-size: 1.4rem;
+  }
+
+  .Answer h3 {
+    font-size: 1rem;
   }
 }

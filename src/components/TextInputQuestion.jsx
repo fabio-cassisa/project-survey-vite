@@ -1,6 +1,4 @@
-import "../styles/TextInput.css";
-
-export const TextInputQuestion = ({ question, answer, onAnswerChange }) => {
+const TextInputQuestion = ({ question, answer, onAnswerChange }) => {
   return (
     <div className="TextInputContainer"> {/* Add a container for styling */}
       <h3>{question.text}</h3>
@@ -12,3 +10,5 @@ export const TextInputQuestion = ({ question, answer, onAnswerChange }) => {
     </div>
   );
 };
+
+export default TextInputQuestion;
