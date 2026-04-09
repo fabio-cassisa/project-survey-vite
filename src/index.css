@@ -38,6 +38,28 @@
   --radius-sm: 8px;
 }
 
+/* ========================================
+   Light theme — follows system preference
+   ======================================== */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f4f5;
+    --surface: #ffffff;
+    --surface-hover: #f0f0f3;
+    --border: #e4e4e7;
+    --text: #18181b;
+    --text-muted: #71717a;
+    --accent: #4f46e5;
+    --accent-hover: #6366f1;
+    --accent-glow: rgba(79, 70, 229, 0.1);
+    --success: #16a34a;
+    --success-glow: rgba(22, 163, 74, 0.1);
+    --danger: #dc2626;
+    --warning: #ca8a04;
+  }
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg);
